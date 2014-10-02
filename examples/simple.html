@@ -9,17 +9,29 @@
 	<script src="../src/Hyperlapse.js"></script>
 	<script> 
 
+		var hyperlapse;
+		var myLookatHeading = 1;
 		function init() {
 
-			var hyperlapse = new Hyperlapse(document.getElementById('pano'), {
-				lookat: new google.maps.LatLng(37.81409525128964,-122.4775045005249),
-				zoom: 1,
-				use_lookat: true,
-				elevation: 50
+			hyperlapse = new Hyperlapse(document.getElementById('pano'), {
+
+width: 800,
+height: 400,
+elevation: 50,
+use_elevation: false,
+distance_between_points: 5,
+max_points: 10,
+fov: 70,
+zoom: 1,
+lookat: new google.maps.LatLng(61.0031558,14.5512115),
+use_lookat: true,
+millis: 200,
+tilt: 0,
+forward_only: true
 			});
 
 			hyperlapse.onError = function(e) {
-				console.log(e);
+				console.log({err:e});
 			};
 
 			hyperlapse.onRouteComplete = function(e) {
@@ -35,8 +47,8 @@
 
 			var route = {
 				request:{
-					origin: new google.maps.LatLng(37.816480000000006,-122.47825,37),
-					destination: new google.maps.LatLng(37.81195,-122.47773000000001),
+					origin: new google.maps.LatLng(61.0030762,14.5395751),
+					destination: new google.maps.LatLng(61.0085747,14.5490443),
 					travelMode: google.maps.DirectionsTravelMode.DRIVING
 				}
 			};

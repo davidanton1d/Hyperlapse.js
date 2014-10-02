@@ -127,6 +127,8 @@ var Hyperlapse = function(container, params) {
 		_max_points = _params.max_points || 100,
 		_fov = _params.fov || 70,
 		_zoom = _params.zoom || 1,
+		_loop = ("undefined" !==  typeof _params.loop) ? _params.loop : true,
+		_forward_only = _params.forward_only || false,
 		_lat = 0, _lon = 0,
 		_position_x = 0, _position_y = 0,
 		_is_playing = false, _is_loading = false,
@@ -439,8 +441,13 @@ var Hyperlapse = function(container, params) {
 		_origin_heading = _h_points[_point_index].heading;
 		_origin_pitch = _h_points[_point_index].pitch;
 
-		if(self.use_lookat)
-			_lookat_heading = google.maps.geometry.spherical.computeHeading( _h_points[_point_index].location, self.lookat );
+		if(self.use_lookat){
+//			_lookat_heading = google.maps.geometry.spherical.computeHeading( _h_points[_point_index].location, self.lookat );
+			_lookat_heading = _origin_heading; //window.myLookatHeading || 0;
+			console.log(_lookat_heading);			
+		}else{
+			console.log(_origin_heading);
+		}
 
 		if(_h_points[_point_index].elevation != -1 ) {
 			var e = _h_points[_point_index].elevation - self.elevation_offset;
@@ -508,8 +515,15 @@ var Hyperlapse = function(container, params) {
 
 		if(_forward) {
 			if(++_point_index == _h_points.length) {
-				_point_index = _h_points.length-1;
-				_forward = !_forward;
+				if (_forward_only) {
+					_point_index = 0;
+				} else {
+					_point_index = _h_points.length-1;
+					_forward = !_forward;
+				}
+				if (!_loop) {
+					self.pause();
+				}
 			}
 		} else {
 			if(--_point_index == -1) {
@@ -530,7 +544,9 @@ var Hyperlapse = function(container, params) {
 	 * @type {Number}
 	 */
 	this.millis = _params.millis || 50;
-
+	//this.millis = 2000/_params.max_points || 50;
+	//console.log(2000 + '/' + _params.max_points + '=' + this.millis);
+	
 	/**
 	 * @default 0
 	 * @type {Number}
