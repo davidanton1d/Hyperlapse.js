@@ -1,3 +1,7 @@
+Yo! Currently I'm just developing the example simple.html. Just so you know.
+
+
+
 # **Hyperlapse.js**
 
 ### JavaScript hyper-lapse utility for Google Street View.
