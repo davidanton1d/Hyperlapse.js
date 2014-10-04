@@ -15,17 +15,18 @@
 
 			hyperlapse = new Hyperlapse(document.getElementById('pano'), {
 
-width: 800,
-height: 400,
-elevation: 50,
+width: 200,
+height: 100,
+elevation: 10,
 use_elevation: false,
 distance_between_points: 5,
-max_points: 10,
+max_points: 3700,
 fov: 70,
 zoom: 1,
-lookat: new google.maps.LatLng(61.0031558,14.5512115),
+lookat: new google.maps.LatLng(61.009777, 14.553672), //i vattnet: (61.0031558,14.5512115),
+lookat2: new google.maps.LatLng(61.0031558,14.5512115),
 use_lookat: true,
-millis: 200,
+millis: 50,
 tilt: 0,
 forward_only: true
 			});
@@ -46,9 +47,11 @@ forward_only: true
 			var directions_service = new google.maps.DirectionsService();
 
 			var route = {
-				request:{
-					origin: new google.maps.LatLng(61.0030762,14.5395751),
-					destination: new google.maps.LatLng(61.0085747,14.5490443),
+				request:{					
+					origin: new google.maps.LatLng(61.0058372,14.543426),
+					destination: new google.maps.LatLng(61.0073388,14.546794)//norrköping: 58.611988, 16.160022),//halvlånga biten: 61.009383, 14.567638), //korta biten: 61.0073388,14.546794),
+					// origin: new google.maps.LatLng(61.0030762,14.5395751),
+					// destination: new google.maps.LatLng(61.0085747,14.5490443),
 					travelMode: google.maps.DirectionsTravelMode.DRIVING
 				}
 			};

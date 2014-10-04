@@ -442,8 +442,17 @@ var Hyperlapse = function(container, params) {
 		_origin_pitch = _h_points[_point_index].pitch;
 
 		if(self.use_lookat){
-//			_lookat_heading = google.maps.geometry.spherical.computeHeading( _h_points[_point_index].location, self.lookat );
-			_lookat_heading = _origin_heading; //window.myLookatHeading || 0;
+			//om hälften passerat, byt till lookat2
+			if(_point_index + 3 < _h_points.length){
+				_lookat_heading = google.maps.geometry.spherical.computeHeading( _h_points[_point_index].location, _h_points[_point_index + 3].location );
+
+			}else{
+				_lookat_heading = google.maps.geometry.spherical.computeHeading( _h_points[_point_index].location, _h_points[_h_points.length-1].location );
+				// _lookat_heading = google.maps.geometry.spherical.computeHeading( _h_points[_point_index].location, self.lookat2 );
+				
+			}
+
+			// _lookat_heading = _origin_heading; //window.myLookatHeading || 0;
 			console.log(_lookat_heading);			
 		}else{
 			console.log(_origin_heading);
@@ -538,6 +547,11 @@ var Hyperlapse = function(container, params) {
 	 * @type {google.maps.LatLng}
 	 */
 	this.lookat = _params.lookat || null;
+
+	/**
+	 * @type {google.maps.LatLng}
+	 */
+	this.lookat2 = _params.lookat2 || null;
 
 	/**
 	 * @default 50
